@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { once } from 'node:events';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
 const databaseUrl = process.env.DATABASE_URL_TEST;
 
@@ -155,6 +157,53 @@ test('OAuth refresh preserves MCP sessions only for the same consented connectio
     await prisma.oAuthAccessToken.update({ where: { token: hashSecret(tokens.access_token) }, data: { selectedAccountIds: ['act_200', 'act_100'] } });
     tokens = await refresh(tokens, 'ads_management ads_read');
     await read(tokens.access_token, originalSession);
+  });
+  await t.test('proactive refresh lets old and new access read through the same MCP session until original expiry', async () => {
+    const previous = tokens;
+    tokens = await refresh(tokens);
+    await read(previous.access_token, originalSession);
+    await read(tokens.access_token, originalSession);
+    await prisma.oAuthAccessToken.update({ where: { token: hashSecret(previous.access_token) }, data: { expiresAt: new Date(Date.now() - 1) } });
+    await assertMethods(previous.access_token, originalSession, 401);
+    await read(tokens.access_token, originalSession);
+  });
+  await t.test('standalone SSE is explicitly unsupported without bypassing authentication, session or protocol checks', async () => {
+    for (const session of [undefined, originalSession]) {
+      const response = await originalFetch(`${base}/mcp`, { headers: {
+        ...headers(tokens.access_token, session), Accept: 'text/event-stream', 'Last-Event-ID': 'synthetic-event',
+        'Mcp-Protocol-Version': '2025-11-25',
+      } });
+      assert.equal(response.status, 405);
+      assert.equal(response.headers.get('allow'), 'POST, DELETE, OPTIONS');
+      assert.equal(await response.text(), '');
+    }
+    const unauthenticated = await originalFetch(`${base}/mcp`, { headers: { Accept: 'text/event-stream' } });
+    assert.equal(unauthenticated.status, 401);
+    assert.match(unauthenticated.headers.get('www-authenticate'), /resource_metadata=/);
+    await unauthenticated.text();
+    const foreign = await createGrant();
+    const wrongSession = await originalFetch(`${base}/mcp`, { headers: headers(foreign.access_token, originalSession) });
+    assert.equal(wrongSession.status, 404);
+    await wrongSession.text();
+    const invalidProtocol = await originalFetch(`${base}/mcp`, { headers: {
+      ...headers(tokens.access_token, originalSession), 'Mcp-Protocol-Version': 'unsupported-synthetic',
+    } });
+    assert.equal(invalidProtocol.status, 400);
+    await invalidProtocol.text();
+    await read(tokens.access_token, originalSession);
+  });
+  await t.test('the real TypeScript MCP client can initialize and read with standalone SSE disabled', async () => {
+    const independent = await createGrant();
+    const client = new Client({ name: 'synthetic-sdk-client', version: '1' });
+    const transport = new StreamableHTTPClientTransport(new URL(`${base}/mcp`), {
+      requestInit: { headers: { Authorization: `Bearer ${independent.access_token}` } },
+    });
+    try {
+      await client.connect(transport);
+      const result = await client.callTool({ name: 'list_campaigns', arguments: { account_id: 'act_100' } });
+      assert.ok(!result.isError, JSON.stringify(result));
+      assert.match(JSON.stringify(result), /Synthetic campaign/);
+    } finally { await client.close(); }
   });
   await t.test('a new authorization cannot reuse an old session even with the same application, login and saved Meta token', async () => {
     const another = await createGrant();

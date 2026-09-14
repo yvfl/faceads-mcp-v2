@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 import { randomUUID } from 'node:crypto';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
+import { isInitializeRequest, SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextprotocol/sdk/types.js';
 import { withAuthContext, type AuthContext } from '../utils/auth-context.js';
 import { usageLogger } from '../middleware/usage-logger.js';
 import { isDatabaseConfigured, getPrisma, disconnectPrisma } from '../db/prisma.js';
@@ -105,7 +105,7 @@ export async function startHttpServer({ port, createServer }: HttpServerOptions)
 
   const limiter = rateLimit({ windowMs: 60_000, limit: 120, standardHeaders: 'draft-7', legacyHeaders: false });
   async function handle(req: Request, res: Response) {
-    // Every request, including SSE and DELETE, revalidates the current grant.
+    // Every request, including GET negotiation and DELETE, revalidates its grant.
     const bearer = /^Bearer ([A-Za-z0-9_-]+)$/i.exec(req.headers.authorization || '')?.[1];
     const auth = bearer ? await resolveBearer(bearer) : null;
     if (!auth?.grantId) {
@@ -118,6 +118,18 @@ export async function startHttpServer({ port, createServer }: HttpServerOptions)
     let session = typeof sessionId === 'string' ? sessions.get(sessionId) : undefined;
     if (sessionId && (!session || session.binding !== auth.sessionBinding)) {
       res.status(404).json({ jsonrpc: '2.0', error: { code: -32001, message: 'Session not found; initialize a new session.' }, id: null }); return;
+    }
+    if (req.method === 'GET') {
+      const protocol = req.headers['mcp-protocol-version'];
+      if (protocol !== undefined && (typeof protocol !== 'string' || !SUPPORTED_PROTOCOL_VERSIONS.includes(protocol))) {
+        res.status(400).json({ jsonrpc: '2.0', error: { code: -32000, message: 'Unsupported protocol version.' }, id: null }); return;
+      }
+      // Streamable HTTP explicitly allows 405 for the optional standalone SSE
+      // channel. All v2 replies use POST JSON; there are no server-push features.
+      // Avoid idle streams whose reconnect can trigger unpersisted OAuth refresh
+      // in older clients. Authentication and session binding still apply above.
+      res.setHeader('Allow', 'POST, DELETE, OPTIONS');
+      res.status(405).end(); return;
     }
     let releaseReservation: (() => void) | undefined;
     let initializingServer: Server | undefined;

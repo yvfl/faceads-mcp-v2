@@ -4,7 +4,7 @@ import rateLimit from 'express-rate-limit';
 import type { OAuthClient, OAuthFlow } from '../generated/prisma/client.js';
 import { getPrisma } from '../db/prisma.js';
 import { encryptToken, decryptToken } from '../db/crypto.js';
-import { generateClientSecret, generateAuthCode, generateToken, generateFlowId, hashPassword, verifyPassword, verifyPkceS256, scopeToPermission, ACCESS_TOKEN_TTL, REFRESH_TOKEN_IDLE_TTL, AUTH_CODE_TTL, AUTH_FLOW_TTL, resolveMcpResource, hashSecret, constantEqual, parseScopes, isAllowedRedirectUri } from '../auth/oauth-utils.js';
+import { generateClientSecret, generateAuthCode, generateToken, generateFlowId, hashPassword, verifyPassword, verifyPkceS256, scopeToPermission, ACCESS_TOKEN_TTL, REFRESH_TOKEN_IDLE_TTL, AUTH_CODE_TTL, AUTH_FLOW_TTL, resolveMcpResource, hashSecret, authorizationReference, constantEqual, parseScopes, isAllowedRedirectUri } from '../auth/oauth-utils.js';
 import { lockOAuthConnection, rotateRefreshGrant, revokeOAuthToken } from '../auth/refresh-grants.js';
 import { getBrowserFlow, setFlowCookie, clearFlowCookie } from '../auth/web-session.js';
 import { validateMetaConnection, MetaValidationError } from '../auth/meta-validation.js';
@@ -31,14 +31,18 @@ function context(input: { flow: OAuthFlow; csrf: string; clientName: string }): 
 }
 async function showSettings(res: Response, input: { flow: OAuthFlow; csrf: string; clientName: string }, status = 200, error?: string, notice?: string, selection: Pick<PageContext, 'accessMode' | 'selectedAccountIds'> = {}): Promise<void> {
   const prisma = getPrisma();
+  const activeGrant = { userId: input.flow.userId!, OR: [{ expiresAt: { gt: new Date() } }, { refreshExpiresAt: { gt: new Date() } }] };
   const [saved, grants] = await Promise.all([
     prisma.metaToken.findFirst({ where: { userId: input.flow.userId! }, select: { id: true } }),
-    prisma.oAuthAccessToken.findMany({ where: { userId: input.flow.userId!, OR: [{ expiresAt: { gt: new Date() } }, { refreshExpiresAt: { gt: new Date() } }] }, select: { clientId: true, selectedAccountIds: true, client: { select: { clientName: true } } }, take: 100 }),
+    // Limit applications, not overlapping access-token rows from one application.
+    prisma.oAuthClient.findMany({ where: { accessTokens: { some: activeGrant } },
+      select: { id: true, clientName: true, accessTokens: { where: activeGrant, select: { selectedAccountIds: true } } }, take: 100 }),
   ]);
   const unique = new Map<string, { clientId: string; clientName: string; accounts: Set<string> }>();
   for (const grant of grants) {
-    const entry = unique.get(grant.clientId) || { clientId: grant.clientId, clientName: grant.client.clientName, accounts: new Set<string>() };
-    grant.selectedAccountIds.forEach(id => entry.accounts.add(id)); unique.set(grant.clientId, entry);
+    const entry = { clientId: grant.id, clientName: grant.clientName, accounts: new Set<string>() };
+    for (const access of grant.accessTokens) access.selectedAccountIds.forEach(id => entry.accounts.add(id));
+    unique.set(grant.id, entry);
   }
   // Browsers apply form-action to the final OAuth POST redirect as well.
   res.setHeader('Content-Security-Policy', `default-src 'none'; style-src 'unsafe-inline'; form-action 'self' ${new URL(input.flow.redirectUri).origin}; frame-ancestors 'none'; base-uri 'none'`);
@@ -208,15 +212,19 @@ router.post('/token', async (req: Request, res: Response) => {
         if (claimed.count !== 1) return null;
         return tx.oAuthAccessToken.create({ data: { token: hashSecret(accessToken), clientId: client.id, userId: code.userId, scope: code.scope, resource: code.resource, selectedAccountIds: code.selectedAccountIds, metaTokenId: code.metaTokenId, createdAt: now, expiresAt: new Date(now.getTime() + ACCESS_TOKEN_TTL), refreshToken: issueRefresh ? hashSecret(refreshToken) : null, refreshExpiresAt: issueRefresh ? new Date(now.getTime() + REFRESH_TOKEN_IDLE_TTL) : null } });
       }
-      if (!string(body.refresh_token, 128)) return { error: 'invalid_grant', reason: 'malformed' } as const;
+      if (!string(body.refresh_token, 128)) return { error: 'invalid_grant', reason: 'malformed', diagnostics: {} } as const;
       return rotateRefreshGrant(tx, { clientId: client.id, resource, refreshHash: hashSecret(body.refresh_token), requestedScope: body.scope, accessHash: hashSecret(accessToken), nextRefreshHash: hashSecret(refreshToken), now });
     });
     if (!result) { oauthError(res, 'invalid_grant'); return; }
     if ('error' in result) {
-      // Log only fixed categories after commit: never credentials, identities or request data.
-      console.warn(JSON.stringify({ event: 'oauth_refresh_rejected', reason: result.reason }));
+      // Only committed outcomes and pseudonymous consent references. Never log
+      // credentials, token hashes, account/user IDs or arbitrary request data.
+      console.warn(JSON.stringify({ event: 'oauth_refresh_rejected', timestamp: new Date().toISOString(), reason: result.reason, ...result.diagnostics }));
       oauthError(res, result.error); return;
     }
+    console.info(JSON.stringify({ event: 'oauth_token_issued', timestamp: new Date().toISOString(),
+      grant_type: body.grant_type === 'refresh_token' ? 'refresh_token' : 'authorization_code',
+      authorization_ref: authorizationReference(result.operationOwnerId) }));
     res.json({ access_token: accessToken, token_type: 'Bearer', expires_in: ACCESS_TOKEN_TTL / 1000, scope: result.scope, ...(result.refreshToken ? { refresh_token: refreshToken } : {}) });
   } catch { oauthError(res, 'server_error', 500); }
 });
