@@ -19,6 +19,7 @@ function verifyDatabase() {
 
 test('OAuth refresh follows inactivity, preserves grants and rejects replay without grace', isolated, async t => {
   verifyDatabase();
+  const warnings = t.mock.method(console, 'warn', () => {});
   const originalFetch = globalThis.fetch;
   const databaseName = `faceads_refresh_test_${randomUUID().replaceAll('-', '')}`;
   const admin = new pg.Client({ connectionString: databaseUrl });
@@ -158,12 +159,21 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     assert.equal(used.resource, previous.resource);
     return renewed;
   }
-  async function deniedUnchanged(tokens, changes, expectedError = 'invalid_grant') {
+  function assertDiagnostic(start, reason) {
+    assert.deepEqual(warnings.mock.calls.slice(start).map(call => call.arguments), [
+      [JSON.stringify({ event: 'oauth_refresh_rejected', reason })],
+    ], 'Refresh diagnostics must contain only the fixed event and reason, with no credentials or request data');
+  }
+  async function deniedUnchanged(tokens, changes, expectedError = 'invalid_grant', reason) {
     const before = await stored(tokens);
+    const usedBefore = await prisma.oAuthUsedRefreshToken.findUnique({ where: { refreshToken: hashSecret(tokens.refresh_token) } });
+    const start = warnings.mock.calls.length;
     const response = await refresh(tokens, changes);
     assert.equal(response.status, 400);
     assert.deepEqual(await response.json(), { error: expectedError });
     assert.deepEqual(await stored(tokens), before);
+    assert.deepEqual(await prisma.oAuthUsedRefreshToken.findUnique({ where: { refreshToken: hashSecret(tokens.refresh_token) } }), usedBefore);
+    if (reason) assertDiagnostic(start, reason);
   }
 
   await t.test('initial grant has 60 minutes of access and 90 days of refresh inactivity', async () => {
@@ -205,17 +215,17 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     await t.test(`refresh at 90 days${excess ? ' plus one day' : ' exactly'} of inactivity is rejected`, async () => {
       const tokens = await issue();
       advance(IDLE + excess);
-      await deniedUnchanged(tokens, {});
+      await deniedUnchanged(tokens, {}, 'invalid_grant', 'expired');
     });
   }
 
   await t.test('wrong client, resource or scope do not extend or consume a still-valid refresh', async () => {
     let tokens = await issue({ scope: 'ads_read' });
     advance(40 * DAY);
-    await deniedUnchanged(tokens, { client_id: otherClient });
+    await deniedUnchanged(tokens, { client_id: otherClient }, 'invalid_grant', 'client_mismatch');
     await deniedUnchanged(tokens, { resource: 'https://different.example/mcp' }, 'invalid_target');
-    await deniedUnchanged(tokens, { scope: 'ads_read ads_management' });
-    await deniedUnchanged(tokens, { scope: 'unknown_scope' });
+    await deniedUnchanged(tokens, { scope: 'ads_read ads_management' }, 'invalid_scope', 'invalid_scope');
+    await deniedUnchanged(tokens, { scope: 'unknown_scope' }, 'invalid_scope', 'invalid_scope');
     tokens = await renew(tokens);
     assert.equal((await stored(tokens)).scope, 'ads_read');
   });
@@ -225,7 +235,20 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     advance(DAY);
     tokens = await renew(tokens, { scope: 'ads_read' });
     assert.equal((await stored(tokens)).scope, 'ads_read');
-    await deniedUnchanged(tokens, { scope: 'ads_read ads_management' });
+    await deniedUnchanged(tokens, { scope: 'ads_read ads_management' }, 'invalid_scope', 'invalid_scope');
+  });
+
+  await t.test('invalid scope is reported only for a current, unexpired grant bound to this client and resource', async () => {
+    const tokens = await issue({ scope: 'ads_read' });
+    const wideScope = { scope: 'ads_read ads_management', diagnostic_canary: `private-request-${randomUUID()}` };
+    await deniedUnchanged(tokens, { ...wideScope, client_id: otherClient }, 'invalid_grant', 'client_mismatch');
+    await prisma.oAuthAccessToken.update({ where: { token: hashSecret(tokens.access_token) }, data: { resource: 'https://previous-resource.example/mcp' } });
+    await deniedUnchanged(tokens, wideScope, 'invalid_grant', 'resource_mismatch');
+    await prisma.oAuthAccessToken.update({ where: { token: hashSecret(tokens.access_token) }, data: { resource } });
+    advance(IDLE);
+    await deniedUnchanged(tokens, wideScope, 'invalid_grant', 'expired');
+    await deniedUnchanged(tokens, { ...wideScope, refresh_token: `unknown-refresh-${randomUUID()}` }, 'invalid_grant', 'missing');
+    await deniedUnchanged(tokens, { ...wideScope, refresh_token: '' }, 'invalid_grant', 'malformed');
   });
 
   await t.test('an explicitly revoked refresh cannot be renewed or recreated', async () => {
@@ -233,7 +256,7 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     const response = await post('/oauth/revoke', { client_id: mainClient, token: tokens.refresh_token });
     assert.equal(response.status, 200);
     advance(DAY);
-    await deniedUnchanged(tokens, {});
+    await deniedUnchanged(tokens, {}, 'invalid_grant', 'missing');
     assert.equal(await stored(tokens), null);
   });
 
@@ -248,9 +271,11 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
         advance(DAY);
         successor = await renew(successor);
       }
+      const start = warnings.mock.calls.length;
       const replay = await refresh(original);
       assert.equal(replay.status, 400);
       assert.deepEqual(await replay.json(), { error: 'invalid_grant' });
+      assertDiagnostic(start, 'reused');
       assert.equal(await stored(successor), null);
       assert.equal(await prisma.oAuthAccessToken.count({ where: { operationOwnerId: initial.operationOwnerId } }), 0);
       assert.ok(await stored(sameClient));
@@ -263,13 +288,16 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     advance(DAY);
     const successor = await renew(original);
     const before = await stored(successor);
-    for (const changes of [
-      { client_id: otherClient },
-      { resource: 'https://different.example/mcp' },
-      { scope: 'ads_read ads_management' },
+    for (const [changes, error, reason] of [
+      [{ client_id: otherClient }, 'invalid_grant', 'client_mismatch'],
+      [{ resource: 'https://different.example/mcp' }, 'invalid_target'],
+      [{ scope: 'ads_read ads_management' }, 'invalid_grant', 'reused_scope_mismatch'],
     ]) {
+      const start = warnings.mock.calls.length;
       const response = await refresh(original, changes);
       assert.equal(response.status, 400);
+      assert.deepEqual(await response.json(), { error });
+      if (reason) assertDiagnostic(start, reason);
       assert.deepEqual(await stored(successor), before);
     }
   });
@@ -326,17 +354,46 @@ test('OAuth refresh follows inactivity, preserves grants and rejects replay with
     try {
       await prisma.$executeRawUnsafe('CREATE TRIGGER policy_reject_successor BEFORE INSERT ON oauth_access_tokens FOR EACH ROW EXECUTE FUNCTION policy_reject_successor()');
       installed = true;
+      const start = warnings.mock.calls.length;
       const response = await refresh(original);
       assert.equal(response.status, 500);
       assert.deepEqual(await response.json(), { error: 'server_error' });
       assert.deepEqual(await stored(original), before);
       assert.equal(await prisma.oAuthUsedRefreshToken.findUnique({ where: { refreshToken: hashSecret(original.refresh_token) } }), null);
       assert.equal(await prisma.oAuthAccessToken.count({ where: { operationOwnerId: before.operationOwnerId } }), 1);
+      assert.equal(warnings.mock.calls.length, start, 'A rolled-back transaction must not emit a committed refresh denial');
     } finally {
       if (installed) await prisma.$executeRawUnsafe('DROP TRIGGER policy_reject_successor ON oauth_access_tokens');
       await prisma.$executeRawUnsafe('DROP FUNCTION policy_reject_successor()');
     }
     await renew(original);
+  });
+
+  await t.test('replay diagnostics are emitted only after family revocation commits', async () => {
+    const original = await issue();
+    const successor = await renew(original);
+    const before = await stored(successor);
+    await prisma.$executeRawUnsafe(`CREATE FUNCTION policy_reject_replay_commit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic replay commit rejection'; END $$`);
+    let installed = false;
+    try {
+      await prisma.$executeRawUnsafe('CREATE CONSTRAINT TRIGGER policy_reject_replay_commit AFTER DELETE ON oauth_access_tokens DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION policy_reject_replay_commit()');
+      installed = true;
+      const start = warnings.mock.calls.length;
+      const response = await refresh(original);
+      assert.equal(response.status, 500);
+      assert.deepEqual(await response.json(), { error: 'server_error' });
+      assert.deepEqual(await stored(successor), before);
+      assert.equal(warnings.mock.calls.length, start, 'A replay revocation rolled back at commit must not be logged as committed');
+    } finally {
+      if (installed) await prisma.$executeRawUnsafe('DROP TRIGGER policy_reject_replay_commit ON oauth_access_tokens');
+      await prisma.$executeRawUnsafe('DROP FUNCTION policy_reject_replay_commit()');
+    }
+    const start = warnings.mock.calls.length;
+    const response = await refresh(original);
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { error: 'invalid_grant' });
+    assert.equal(await stored(successor), null);
+    assertDiagnostic(start, 'reused');
   });
 
   await t.test('refresh racing explicit revocation always ends with the family revoked', async () => {

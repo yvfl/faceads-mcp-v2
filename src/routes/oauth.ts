@@ -208,10 +208,15 @@ router.post('/token', async (req: Request, res: Response) => {
         if (claimed.count !== 1) return null;
         return tx.oAuthAccessToken.create({ data: { token: hashSecret(accessToken), clientId: client.id, userId: code.userId, scope: code.scope, resource: code.resource, selectedAccountIds: code.selectedAccountIds, metaTokenId: code.metaTokenId, createdAt: now, expiresAt: new Date(now.getTime() + ACCESS_TOKEN_TTL), refreshToken: issueRefresh ? hashSecret(refreshToken) : null, refreshExpiresAt: issueRefresh ? new Date(now.getTime() + REFRESH_TOKEN_IDLE_TTL) : null } });
       }
-      if (!string(body.refresh_token, 128)) return null;
+      if (!string(body.refresh_token, 128)) return { error: 'invalid_grant', reason: 'malformed' } as const;
       return rotateRefreshGrant(tx, { clientId: client.id, resource, refreshHash: hashSecret(body.refresh_token), requestedScope: body.scope, accessHash: hashSecret(accessToken), nextRefreshHash: hashSecret(refreshToken), now });
     });
     if (!result) { oauthError(res, 'invalid_grant'); return; }
+    if ('error' in result) {
+      // Log only fixed categories after commit: never credentials, identities or request data.
+      console.warn(JSON.stringify({ event: 'oauth_refresh_rejected', reason: result.reason }));
+      oauthError(res, result.error); return;
+    }
     res.json({ access_token: accessToken, token_type: 'Bearer', expires_in: ACCESS_TOKEN_TTL / 1000, scope: result.scope, ...(result.refreshToken ? { refresh_token: refreshToken } : {}) });
   } catch { oauthError(res, 'server_error', 500); }
 });

@@ -17,27 +17,38 @@ type RefreshInput = {
   accessHash: string; nextRefreshHash: string; now: Date;
 };
 
+type RefreshDenialReason = 'missing' | 'expired' | 'reused' | 'client_mismatch' | 'resource_mismatch' | 'invalid_scope' | 'reused_scope_mismatch';
+function denied(reason: RefreshDenialReason) {
+  return { error: reason === 'invalid_scope' ? 'invalid_scope' : 'invalid_grant', reason } as const;
+}
+
 export async function rotateRefreshGrant(tx: Prisma.TransactionClient, input: RefreshInput) {
   const { clientId, resource, refreshHash, requestedScope, now } = input;
   // Find the lock identity without accepting the token. Re-read after acquiring the lock.
   const candidate = await tx.oAuthAccessToken.findUnique({ where: { refreshToken: refreshHash } })
     ?? await tx.oAuthUsedRefreshToken.findUnique({ where: { refreshToken: refreshHash } });
-  if (!candidate || candidate.clientId !== clientId || candidate.resource !== resource
-    || !allowedScope(candidate.scope, requestedScope)) return null;
+  if (!candidate) return denied('missing');
+  if (candidate.clientId !== clientId) return denied('client_mismatch');
+  if (candidate.resource !== resource) return denied('resource_mismatch');
   await lockOAuthConnection(tx, candidate.userId, clientId);
   const previous = await tx.oAuthAccessToken.findUnique({ where: { refreshToken: refreshHash } });
   if (!previous) {
     const used = await tx.oAuthUsedRefreshToken.findUnique({ where: { refreshToken: refreshHash } });
-    if (used && used.clientId === clientId && used.resource === resource && used.retainUntil > now
-      && allowedScope(used.scope, requestedScope)) {
-      // Never authorize a consumed token. Reuse invalidates only its own successor family.
-      await tx.oAuthAccessToken.deleteMany({ where: { operationOwnerId: used.operationOwnerId, clientId, userId: used.userId, resource } });
-    }
-    return null;
+    if (!used) return denied('missing');
+    if (used.clientId !== clientId) return denied('client_mismatch');
+    if (used.resource !== resource) return denied('resource_mismatch');
+    if (used.retainUntil <= now) return denied('expired');
+    if (!allowedScope(used.scope, requestedScope)) return denied('reused_scope_mismatch');
+    // Never authorize a consumed token. Reuse invalidates only its own successor family.
+    await tx.oAuthAccessToken.deleteMany({ where: { operationOwnerId: used.operationOwnerId, clientId, userId: used.userId, resource } });
+    return denied('reused');
   }
+  if (previous.clientId !== clientId) return denied('client_mismatch');
+  if (previous.resource !== resource) return denied('resource_mismatch');
+  if (!previous.refreshExpiresAt || previous.refreshExpiresAt <= now) return denied('expired');
+  // invalid_scope describes only a valid, current grant belonging to this client.
   const scope = allowedScope(previous.scope, requestedScope);
-  if (previous.clientId !== clientId || previous.resource !== resource || !scope
-    || !previous.refreshExpiresAt || previous.refreshExpiresAt <= now) return null;
+  if (!scope) return denied('invalid_scope');
   const deadline = new Date(now.getTime() + REFRESH_TOKEN_IDLE_TTL);
   await tx.oAuthUsedRefreshToken.create({ data: {
     refreshToken: refreshHash, operationOwnerId: previous.operationOwnerId,
