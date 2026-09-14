@@ -396,8 +396,12 @@ test('OAuth browser, consent and token lifecycle with isolated PostgreSQL', { sk
         assert.equal(refreshedGrant.operationOwnerId, initialGrant.operationOwnerId);
         assert.deepEqual(refreshedGrant.selectedAccountIds, ['act_100']);
         assert.ok(refreshedGrant.refreshExpiresAt.getTime() > initialGrant.refreshExpiresAt.getTime());
-        assert.equal(await prisma.oAuthAccessToken.count({ where: { token: initialGrant.token } }), 0);
+        assert.equal(initialGrant.scope, 'ads_read');
+        assert.deepEqual(await prisma.oAuthAccessToken.findUnique({ where: { token: initialGrant.token } }), {
+          ...initialGrant, refreshToken: null, refreshExpiresAt: null,
+        });
         assert.equal((await post('/oauth/token', { grant_type: 'refresh_token', client_id: client.client_id, refresh_token: initialTokens.refresh_token })).status, 400);
+        assert.equal(await prisma.oAuthAccessToken.count({ where: { operationOwnerId: initialGrant.operationOwnerId } }), 0);
       });
     }
   } finally {

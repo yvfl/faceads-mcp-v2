@@ -120,6 +120,30 @@ test('same login across applications keeps independent Meta credentials, scopes 
   const firstGrant = await prisma.oAuthAccessToken.findUniqueOrThrow({ where: { token: hashSecret(first.access_token) } });
   let second = await connect(secondClient, secondMeta, 'act_200', 'read');
 
+  await t.test('settings lists other applications and all their accounts after one family accumulates over 100 access tokens', async () => {
+    await prisma.oAuthAccessToken.createMany({ data: Array.from({ length: 105 }, (_, index) => ({
+      ...firstGrant,
+      token: hashSecret(`synthetic-settings-overlap-${suffix}-${index}`),
+      refreshToken: null, refreshExpiresAt: null,
+    })) });
+    // Both a second account for the first application and a new application
+    // appear after its many overlap rows. They must remain visible to the user.
+    await connect(firstClient, undefined, 'act_200', 'readwrite');
+    const additionalClient = await register('Synthetic additional application');
+    await connect(additionalClient, undefined, 'act_200', 'read');
+    const browser = await login(firstClient);
+    const response = await originalFetch(base + '/oauth/settings?' + new URLSearchParams({ flow: browser.fields.flow }), {
+      headers: { cookie: browser.cookie }, redirect: 'manual',
+    });
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    const connections = [...html.matchAll(/<div class="connection">([\s\S]*?)<\/form><\/div>/g)].map(match => match[1]);
+    assert.ok(connections.some(connection => /<strong>Synthetic first application<\/strong><small>2 conta\(s\) autorizada\(s\)<\/small>/.test(connection)),
+      'The settings page must count both authorized accounts even when the second grant follows many overlap rows');
+    assert.ok(connections.some(connection => /<strong>Synthetic additional application<\/strong><small>1 conta\(s\) autorizada\(s\)<\/small>/.test(connection)),
+      'The settings page must still expose the other application and its authorized account');
+  });
+
   await t.test('second app login and distinct Meta credential leave the first app unchanged', async () => {
     const firstContext = await resolveBearer(first.access_token);
     const secondContext = await resolveBearer(second.access_token);

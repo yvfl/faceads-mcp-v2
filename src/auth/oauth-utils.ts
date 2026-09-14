@@ -18,6 +18,10 @@ export function resolveMcpResource(value: unknown): string | null {
 export function hashSecret(value: string): string {
   return createHash('sha256').update(value).digest('hex');
 }
+/** Pseudonymous reference for one consent, never derived from an access/refresh token. */
+export function authorizationReference(operationOwnerId: string): string {
+  return hashSecret(`faceads:oauth-authorization:${operationOwnerId}`).slice(0, 32);
+}
 export function constantEqual(a: string, b: string): boolean {
   const first = Buffer.from(a); const second = Buffer.from(b);
   return first.length === second.length && timingSafeEqual(first, second);
