@@ -151,6 +151,22 @@ test('same login across applications keeps independent Meta credentials, scopes 
     assert.equal((await resolveBearer(first.access_token)).operationOwnerId, firstGrant.operationOwnerId);
   });
 
+  await t.test('the same saved Meta token supports independent full-access and readonly applications', async () => {
+    let fullWithSaved = await connect(firstClient, undefined, 'act_200', 'readwrite');
+    const fullContext = await resolveBearer(fullWithSaved.access_token);
+    const readContext = await resolveBearer(second.access_token);
+    assert.equal(fullContext.accessToken, secondMeta);
+    assert.equal(readContext.accessToken, secondMeta);
+    assert.equal(fullContext.permissions, 'readwrite');
+    assert.equal(readContext.permissions, 'read');
+    assert.notEqual(fullContext.operationOwnerId, readContext.operationOwnerId);
+    fullWithSaved = await refresh(firstClient, fullWithSaved);
+    second = await refresh(secondClient, second);
+    assert.equal((await resolveBearer(fullWithSaved.access_token)).permissions, 'readwrite');
+    assert.equal((await resolveBearer(second.access_token)).permissions, 'read');
+    assert.equal((await resolveBearer(first.access_token)).accessToken, firstMeta);
+  });
+
   await t.test('explicit browser revocation of the second app preserves the first app and its refresh', async () => {
     const browser = await login(firstClient);
     const revoked = await post('/oauth/connections/revoke', { ...browser.fields, client_id: secondClient }, browser.cookie);

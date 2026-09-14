@@ -24,6 +24,10 @@ Renovar o acesso preserva a sessão MCP quando a autorização permanece a mesma
 
 Refresh tokens são de uso único. A reutilização de um refresh consumido reconhecido pelo servidor revoga a autorização correspondente, incluindo seu sucessor; outras conexões permanecem válidas. O aplicativo deve coordenar a renovação e guardar o novo refresh antes de reutilizar a conexão. Hashes consumidos são retidos por 90 dias para essa detecção, sem armazenar os tokens em claro.
 
+Na renovação, o aplicativo pode omitir `scope` para manter as permissões concedidas. Pedir permissões adicionais com um refresh ainda válido retorna `invalid_scope` e preserva a autorização existente. Por exemplo, uma conexão de leitura não pode renovar pedindo gerenciamento. Refreshes expirados, consumidos ou incompatíveis com o cliente ou destino continuam retornando `invalid_grant`.
+
+Nos logs do servidor, `oauth_refresh_rejected` identifica recusas após a validação do cliente e do destino. O campo `reason` distingue token não encontrado (`missing`), malformado (`malformed`), expirado (`expired`), reutilizado (`reused`), vínculo de cliente ou destino incompatível (`client_mismatch` / `resource_mismatch`) e escopo incompatível (`invalid_scope` / `reused_scope_mismatch`). O evento contém apenas esses dois campos, sem tokens, hashes ou dados de usuários e contas. `missing` também pode ocorrer após revogação; sozinho, não comprova perda de dados. Falhas de transação não emitem esse evento.
+
 ## Executar localmente
 
 Requer Node 22.12+ e npm. O modo stdio dispensa PostgreSQL:
