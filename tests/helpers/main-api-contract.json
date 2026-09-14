@@ -1,0 +1,1400 @@
+{
+  "source": "main:src/api-tools.ts",
+  "commit": "fa8fa4024b4b861fd51cfcf650a9c7af8089ee85",
+  "tools": [
+    {
+      "name": "discover_ad_accounts",
+      "required": [],
+      "properties": {
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_facebook_pages",
+      "required": [],
+      "properties": {
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_instagram_account",
+      "required": [
+        "page_id"
+      ],
+      "properties": {
+        "page_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_campaigns",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "effective_status": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_campaign",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "create_campaign",
+      "required": [
+        "account_id",
+        "name",
+        "objective"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string",
+          "enum": [
+            "OUTCOME_AWARENESS",
+            "OUTCOME_ENGAGEMENT",
+            "OUTCOME_LEADS",
+            "OUTCOME_SALES",
+            "OUTCOME_TRAFFIC",
+            "OUTCOME_APP_PROMOTION"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PAUSED",
+            "ACTIVE"
+          ]
+        },
+        "daily_budget": {
+          "type": "number"
+        },
+        "lifetime_budget": {
+          "type": "number"
+        },
+        "spend_cap": {
+          "type": "number"
+        },
+        "buying_type": {
+          "type": "string",
+          "enum": [
+            "AUCTION",
+            "RESERVED"
+          ]
+        },
+        "special_ad_categories": {
+          "type": "array"
+        },
+        "bid_strategy": {
+          "type": "string",
+          "enum": [
+            "LOWEST_COST_WITHOUT_CAP",
+            "LOWEST_COST_WITH_BID_CAP",
+            "COST_CAP",
+            "BID_CAP"
+          ]
+        },
+        "is_adset_budget_sharing_enabled": {
+          "type": "boolean"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "stop_time": {
+          "type": "string"
+        },
+        "is_skadnetwork_attribution": {
+          "type": "boolean"
+        },
+        "promoted_object": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "update_campaign",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "PAUSED"
+          ]
+        },
+        "daily_budget": {
+          "type": "number"
+        },
+        "lifetime_budget": {
+          "type": "number"
+        },
+        "spend_cap": {
+          "type": "number"
+        },
+        "bid_strategy": {
+          "type": "string",
+          "enum": [
+            "LOWEST_COST_WITHOUT_CAP",
+            "LOWEST_COST_WITH_BID_CAP",
+            "COST_CAP",
+            "BID_CAP"
+          ]
+        },
+        "is_adset_budget_sharing_enabled": {
+          "type": "boolean"
+        },
+        "special_ad_categories": {
+          "type": "array"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "stop_time": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "pause_campaign",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "activate_campaign",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "list_adsets",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "effective_status": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_adset",
+      "required": [
+        "adset_id"
+      ],
+      "properties": {
+        "adset_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "create_adset",
+      "required": [
+        "account_id",
+        "name",
+        "campaign_id",
+        "billing_event",
+        "optimization_goal",
+        "targeting"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "campaign_id": {
+          "type": "string"
+        },
+        "daily_budget": {
+          "type": "number"
+        },
+        "lifetime_budget": {
+          "type": "number"
+        },
+        "billing_event": {
+          "type": "string",
+          "enum": [
+            "IMPRESSIONS",
+            "LINK_CLICKS",
+            "APP_INSTALLS",
+            "PAGE_LIKES",
+            "POST_ENGAGEMENT",
+            "VIDEO_VIEWS"
+          ]
+        },
+        "optimization_goal": {
+          "type": "string",
+          "enum": [
+            "REACH",
+            "IMPRESSIONS",
+            "AD_RECALL_LIFT",
+            "LINK_CLICKS",
+            "LANDING_PAGE_VIEWS",
+            "OFFSITE_CONVERSIONS",
+            "VALUE",
+            "ENGAGED_USERS",
+            "EVENT_RESPONSES",
+            "PAGE_LIKES",
+            "POST_ENGAGEMENT",
+            "THRUPLAY",
+            "VIDEO_VIEWS",
+            "LEAD_GENERATION",
+            "QUALITY_LEAD",
+            "APP_INSTALLS",
+            "APP_INSTALLS_AND_OFFSITE_CONVERSIONS",
+            "VISIT_INSTAGRAM_PROFILE",
+            "PROFILE_VISIT",
+            "CONVERSATIONS",
+            "MESSAGING_PURCHASE_CONVERSION",
+            "MESSAGING_APPOINTMENT_CONVERSION",
+            "IN_APP_VALUE",
+            "SUBSCRIBERS",
+            "REMINDERS_SET",
+            "MEANINGFUL_CALL_ATTEMPT",
+            "QUALITY_CALL",
+            "DERIVED_EVENTS"
+          ]
+        },
+        "targeting": {
+          "type": "object"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PAUSED",
+            "ACTIVE"
+          ]
+        },
+        "bid_strategy": {
+          "type": "string",
+          "enum": [
+            "LOWEST_COST_WITHOUT_CAP",
+            "LOWEST_COST_WITH_BID_CAP",
+            "COST_CAP"
+          ]
+        },
+        "bid_amount": {
+          "type": "number"
+        },
+        "promoted_object": {
+          "type": "object"
+        },
+        "advantage_audience": {
+          "type": "number",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "attribution_spec": {
+          "type": "array"
+        },
+        "is_incremental_attribution_enabled": {
+          "type": "boolean"
+        },
+        "excluded_custom_audiences": {
+          "type": "array"
+        },
+        "destination_type": {
+          "type": "string",
+          "enum": [
+            "WEBSITE",
+            "APP",
+            "MESSENGER",
+            "WHATSAPP",
+            "INSTAGRAM_DIRECT",
+            "PHONE_CALL",
+            "SHOP",
+            "UNDEFINED"
+          ]
+        },
+        "is_dynamic_creative": {
+          "type": "boolean"
+        },
+        "adset_schedule": {
+          "type": "array"
+        },
+        "pacing_type": {
+          "type": "array"
+        },
+        "frequency_control_specs": {
+          "type": "array"
+        },
+        "daily_min_spend_target": {
+          "type": "number"
+        },
+        "daily_spend_cap": {
+          "type": "number"
+        },
+        "bid_constraints": {
+          "type": "object"
+        },
+        "dsa_beneficiary": {
+          "type": "string"
+        },
+        "dsa_payor": {
+          "type": "string"
+        },
+        "adlabels": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "update_adset",
+      "required": [
+        "adset_id"
+      ],
+      "properties": {
+        "adset_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "PAUSED"
+          ]
+        },
+        "daily_budget": {
+          "type": "number"
+        },
+        "lifetime_budget": {
+          "type": "number"
+        },
+        "targeting": {
+          "type": "object"
+        },
+        "bid_strategy": {
+          "type": "string",
+          "enum": [
+            "LOWEST_COST_WITHOUT_CAP",
+            "LOWEST_COST_WITH_BID_CAP",
+            "COST_CAP"
+          ]
+        },
+        "bid_amount": {
+          "type": "number"
+        },
+        "bid_constraints": {
+          "type": "object"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "optimization_goal": {
+          "type": "string",
+          "enum": [
+            "REACH",
+            "IMPRESSIONS",
+            "AD_RECALL_LIFT",
+            "LINK_CLICKS",
+            "LANDING_PAGE_VIEWS",
+            "OFFSITE_CONVERSIONS",
+            "VALUE",
+            "ENGAGED_USERS",
+            "EVENT_RESPONSES",
+            "PAGE_LIKES",
+            "POST_ENGAGEMENT",
+            "THRUPLAY",
+            "VIDEO_VIEWS",
+            "LEAD_GENERATION",
+            "QUALITY_LEAD",
+            "APP_INSTALLS",
+            "APP_INSTALLS_AND_OFFSITE_CONVERSIONS",
+            "VISIT_INSTAGRAM_PROFILE",
+            "PROFILE_VISIT",
+            "CONVERSATIONS",
+            "MESSAGING_PURCHASE_CONVERSION",
+            "MESSAGING_APPOINTMENT_CONVERSION",
+            "IN_APP_VALUE",
+            "SUBSCRIBERS",
+            "REMINDERS_SET",
+            "MEANINGFUL_CALL_ATTEMPT",
+            "QUALITY_CALL",
+            "DERIVED_EVENTS"
+          ]
+        },
+        "promoted_object": {
+          "type": "object"
+        },
+        "attribution_spec": {
+          "type": "array"
+        },
+        "value_rule_set_id": {
+          "type": "string"
+        },
+        "value_rules_applied": {
+          "type": "boolean"
+        },
+        "dsa_beneficiary": {
+          "type": "string"
+        },
+        "dsa_payor": {
+          "type": "string"
+        },
+        "adlabels": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "pause_adset",
+      "required": [
+        "adset_id"
+      ],
+      "properties": {
+        "adset_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "activate_adset",
+      "required": [
+        "adset_id"
+      ],
+      "properties": {
+        "adset_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "list_ads",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_campaign_ads",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_ad",
+      "required": [
+        "ad_id"
+      ],
+      "properties": {
+        "ad_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "create_ad",
+      "required": [
+        "account_id",
+        "name",
+        "adset_id",
+        "creative_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "adset_id": {
+          "type": "string"
+        },
+        "creative_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PAUSED",
+            "ACTIVE"
+          ]
+        },
+        "tracking_specs": {
+          "type": "array"
+        },
+        "ad_schedule_start_time": {
+          "type": "string"
+        },
+        "ad_schedule_end_time": {
+          "type": "string"
+        },
+        "conversion_domain": {
+          "type": "string"
+        },
+        "adlabels": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "update_ad",
+      "required": [
+        "ad_id"
+      ],
+      "properties": {
+        "ad_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "PAUSED"
+          ]
+        },
+        "creative": {
+          "type": "object"
+        },
+        "tracking_specs": {
+          "type": "array"
+        },
+        "conversion_domain": {
+          "type": "string"
+        },
+        "adlabels": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "pause_ad",
+      "required": [
+        "ad_id"
+      ],
+      "properties": {
+        "ad_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "activate_ad",
+      "required": [
+        "ad_id"
+      ],
+      "properties": {
+        "ad_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "list_creatives",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_creative",
+      "required": [
+        "creative_id"
+      ],
+      "properties": {
+        "creative_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "create_creative",
+      "required": [
+        "account_id",
+        "name"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "object_story_spec": {
+          "type": "object"
+        },
+        "object_story_id": {
+          "type": "string"
+        },
+        "image_hash": {
+          "type": "string"
+        },
+        "image_url": {
+          "type": "string"
+        },
+        "url_tags": {
+          "type": "string"
+        },
+        "asset_feed_spec": {
+          "type": "object"
+        },
+        "platform_customizations": {
+          "type": "object"
+        },
+        "creative_features_spec": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "get_account_insights",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "action_attribution_windows": {
+          "type": "array"
+        },
+        "use_unified_attribution_setting": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "get_campaign_insights",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "action_attribution_windows": {
+          "type": "array"
+        },
+        "use_unified_attribution_setting": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "get_adset_insights",
+      "required": [
+        "adset_id"
+      ],
+      "properties": {
+        "adset_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "action_attribution_windows": {
+          "type": "array"
+        },
+        "use_unified_attribution_setting": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "get_ad_insights",
+      "required": [
+        "ad_id"
+      ],
+      "properties": {
+        "ad_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "action_attribution_windows": {
+          "type": "array"
+        },
+        "use_unified_attribution_setting": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "get_attribution_comparison",
+      "required": [
+        "object_id",
+        "object_type"
+      ],
+      "properties": {
+        "object_id": {
+          "type": "string"
+        },
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "ad",
+            "adset",
+            "campaign"
+          ]
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "actions": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_performance_summary",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "action_types": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_campaign_ads_with_insights",
+      "required": [
+        "account_id",
+        "campaign_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "campaign_id": {
+          "type": "string"
+        },
+        "date_preset": {
+          "type": "string",
+          "enum": [
+            "today",
+            "yesterday",
+            "last_7d",
+            "last_14d",
+            "last_30d",
+            "this_month",
+            "last_month"
+          ]
+        },
+        "time_range": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "action_attribution_windows": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_custom_audiences",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "create_custom_audience",
+      "required": [
+        "account_id",
+        "name",
+        "subtype"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subtype": {
+          "type": "string",
+          "enum": [
+            "CUSTOM",
+            "WEBSITE",
+            "APP",
+            "OFFLINE_CONVERSION",
+            "LOOKALIKE",
+            "ENGAGEMENT"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "customer_file_source": {
+          "type": "string",
+          "enum": [
+            "USER_PROVIDED_ONLY",
+            "PARTNER_PROVIDED_ONLY",
+            "BOTH_USER_AND_PARTNER_PROVIDED"
+          ]
+        },
+        "rule": {
+          "type": "object"
+        },
+        "pixel_id": {
+          "type": "string"
+        },
+        "prefill": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "get_reach_estimate",
+      "required": [
+        "account_id",
+        "targeting_spec"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "targeting_spec": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "list_pixels",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "upload_image",
+      "required": [
+        "account_id",
+        "image_url"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "image_url": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "get_dataset_quality",
+      "required": [
+        "pixel_id"
+      ],
+      "properties": {
+        "pixel_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "search_geolocation",
+      "required": [
+        "q"
+      ],
+      "properties": {
+        "q": {
+          "type": "string"
+        },
+        "location_types": {
+          "type": "array"
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "execute_api",
+      "required": [
+        "method",
+        "endpoint"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "DELETE"
+          ]
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "upload_video",
+      "required": [
+        "account_id",
+        "file_url"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "file_url": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "get_video_status",
+      "required": [
+        "video_id"
+      ],
+      "properties": {
+        "video_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "create_value_rule_set",
+      "required": [
+        "account_id",
+        "name",
+        "rules"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "list_value_rule_sets",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "get_value_rule_set",
+      "required": [
+        "value_rule_set_id"
+      ],
+      "properties": {
+        "value_rule_set_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "update_value_rule_set",
+      "required": [
+        "value_rule_set_id"
+      ],
+      "properties": {
+        "value_rule_set_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "delete_value_rule_set",
+      "required": [
+        "value_rule_set_id"
+      ],
+      "properties": {
+        "value_rule_set_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "create_ad_label",
+      "required": [
+        "account_id",
+        "name"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "list_ad_labels",
+      "required": [
+        "account_id"
+      ],
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "preview_creative",
+      "required": [
+        "creative_id",
+        "ad_format"
+      ],
+      "properties": {
+        "creative_id": {
+          "type": "string"
+        },
+        "ad_format": {
+          "type": "string",
+          "enum": [
+            "DESKTOP_FEED_STANDARD",
+            "MOBILE_FEED_STANDARD",
+            "MOBILE_FEED_BASIC",
+            "INSTAGRAM_STANDARD",
+            "INSTAGRAM_STORY",
+            "INSTAGRAM_REELS",
+            "RIGHT_COLUMN_STANDARD",
+            "MARKETPLACE_MOBILE",
+            "AUDIENCE_NETWORK_OUTSTREAM_VIDEO"
+          ]
+        }
+      }
+    },
+    {
+      "name": "create_budget_schedule",
+      "required": [
+        "campaign_id",
+        "budget_value",
+        "time_start",
+        "time_end"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "budget_value": {
+          "type": "number"
+        },
+        "budget_value_type": {
+          "type": "string",
+          "enum": [
+            "ABSOLUTE",
+            "MULTIPLIER"
+          ]
+        },
+        "time_start": {
+          "type": "string"
+        },
+        "time_end": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "get_budget_schedules",
+      "required": [
+        "campaign_id"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "update_budget_schedule",
+      "required": [
+        "budget_schedule_id"
+      ],
+      "properties": {
+        "budget_schedule_id": {
+          "type": "string"
+        },
+        "budget_value": {
+          "type": "number"
+        },
+        "time_start": {
+          "type": "string"
+        },
+        "time_end": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "delete_budget_schedule",
+      "required": [
+        "budget_schedule_id"
+      ],
+      "properties": {
+        "budget_schedule_id": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "get_skill",
+      "required": [],
+      "properties": {}
+    },
+    {
+      "name": "get_playbook",
+      "required": [],
+      "properties": {}
+    },
+    {
+      "name": "get_andromeda",
+      "required": [],
+      "properties": {}
+    }
+  ]
+}

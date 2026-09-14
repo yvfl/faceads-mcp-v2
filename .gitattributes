@@ -1,0 +1,3 @@
+# Preserve historical audit exports: patch context and CSV CRLF are intentional.
+audits/**/*.patch -whitespace
+audits/**/*.csv whitespace=cr-at-eol

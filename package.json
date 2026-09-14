@@ -1,0 +1,80 @@
+{
+  "name": "faceads-mcp-v2",
+  "version": "2.0.0",
+  "private": true,
+  "description": "MCP Server para Facebook Marketing API - Documenta\u00e7\u00e3o e Execu\u00e7\u00e3o",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "faceads-mcp-v2": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "ANDROMEDA.md",
+    "PLAYBOOK.md",
+    "SKILL.md"
+  ],
+  "scripts": {
+    "check:publication": "node scripts/check-publication.mjs",
+    "check:railway": "tsc --noEmit --strict --skipLibCheck --module NodeNext --moduleResolution NodeNext --target ES2022 .railway/railway.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:http": "node --env-file-if-exists=.env dist/index.js --http",
+    "dev": "tsc --watch",
+    "scrape": "node scripts/scrape-docs.js",
+    "scrape:resume": "node scripts/scrape-docs.js --resume",
+    "discover": "node scripts/discover-urls.js",
+    "smoke": "node scripts/smoke-test.js",
+    "test": "npm run build && node --test tests/offline/*.test.mjs tests/protocol/*.test.mjs tests/release/*.test.mjs tests/scraper/*.test.mjs tests/docs/*.test.mjs tests/security/*.test.mjs tests/auth/*.test.mjs",
+    "test:docs": "node --test tests/docs/*.test.mjs",
+    "test:auth": "npm run build && node --test tests/auth/*.test.mjs",
+    "test:offline": "npm run build && node --test tests/offline/*.test.mjs",
+    "test:protocol": "npm run build && node --test tests/protocol/*.test.mjs",
+    "test:release": "npm run build && node --test tests/release/*.test.mjs",
+    "test:scraper": "node --test tests/scraper/*.test.mjs",
+    "test:live": "npm run build && node scripts/test-live.mjs",
+    "db:migrate": "node --env-file-if-exists=.env node_modules/prisma/build/index.js migrate deploy",
+    "test:browser": "npm run build && node tests/browser/connection.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "facebook",
+    "meta",
+    "marketing-api",
+    "ads",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "pg": "^8.18.0",
+    "prisma": "7.10.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.16.0",
+    "playwright": "^1.63.0",
+    "railway": "3.11.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "8.0.0"
+    },
+    "prisma": {
+      "mysql2": "3.24.4"
+    }
+  }
+}

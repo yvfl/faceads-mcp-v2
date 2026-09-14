@@ -1,0 +1,1252 @@
+{
+  "checkedAt": "2026-09-12T19:45:58.466Z",
+  "publicMarkdownFiles": 887,
+  "indexedFiles": 881,
+  "families": {
+    "marketing-api-and-curated": 635,
+    "catalog": 60,
+    "conversions-api": 120,
+    "gateway-products": 72
+  },
+  "successfullyFetched": 871,
+  "staleFiles": 15,
+  "indexBidirectional": true,
+  "missingIndexedFiles": 0,
+  "finishedAt": "2026-09-12T19:45:24.476Z",
+  "collection": {
+    "partial": false,
+    "pruningDisabled": true,
+    "pruneBlocked": [
+      "242 de 1113 páginas com erro (21.7%, limite 5%)"
+    ],
+    "attempted": 1113,
+    "written": 870
+  },
+  "counts": {
+    "new": 166,
+    "modified": 116,
+    "unchanged": 589,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 242,
+    "removed": 0
+  },
+  "skipped": [],
+  "errors": [
+    {
+      "path": "/documentation/ads-commerce/catalog/getting-started",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/guides/hotel-catalog-migration",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/localized-catalog-setup",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/localized-catalog/localized-catalog-da",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/localized-catalog/localized-catalog-ig",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/product-deep-links",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/crm-integration",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/predicted-lifetime-value",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/value-optimization-for-profit/catalog-integration",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/value-optimization-for-profit/integration-guide",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/value-optimization-for-profit/overview",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/integration-quality-api",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/parameter-builder-feature-library",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/parameter-builder-feature-library/client-side-onboarding",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/parameter-builder-feature-library/server-side-onboarding",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/setup-quality-api",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/ad-recommendations",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/ads-webhooks-overview",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/creative-fatigue",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/effective-status",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/in-process-ad-objects",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/setup/get-started",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/subscriptions",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/ads-webhooks/with-issues-ad-objects",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/advantage-catalog-ads/image-templates",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/creative/metadata-tagging",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/insights/feature-settings",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/lead-ads/enable-quality-features",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/marketing-api-changelog/version26.0",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/marketing-messages",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/gateway-products/gateway-aws-ecs-express/ecs-express-migration",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/gateway-products/gateway-aws-eks",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed/rules",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed/uploads",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/reach-frequency-prediction",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/businessmanager/assets",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/destinations",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/flights",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/home_listings",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/hotels",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/hotel/hotel_rooms",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-item",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/products",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-group/products",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/vehicle",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/vehicles",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-set/vehicle_offers",
+      "reason": "network",
+      "detail": "HTTP 500"
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed-schedule",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-product-ads/set-up-feed",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed-upload/errors",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-product-ads/ads-management",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/catalog/scheduled-feeds",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-group",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-auto/auto-catalog",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed-rule-suggestion",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-feed-rule",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-pixel-capi-event-alyacr",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-capiacr",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-event-coverage",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-dedup-key-feedback",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-data-freshness",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-pixel-capiemq",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-emq-diagnostics",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-dataset-capi-event-coverage-alyacr",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/system-users/create-retrieve-update",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-manager/guides/on-behalf-of",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-asset-management/guides/business-to-business",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-asset-management/guides/business-pixel-sharing",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/gateway-products/gateway-aws-eks/eks-architecture",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/gateway-products/gateway-aws-eks/create-instance-partners-agencies",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/gateway-products/gateway-aws-eks/set-up-domain",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/businessmanager/bestpractice",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-asset-feed-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-creative/segment-asset-customization",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-creative/overview",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/adgroup/feedback",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/advideo",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-object-story-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-link-data",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-photo-data",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-text-data",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-video-data",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-media-sourcing-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-asset-management/guides/ad-accounts",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-features-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/adcreative",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adgroup/insights",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/insights/fields",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads/get-started",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/generatepreview/v15.0",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/generatepreview/v16.0",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-product-ads",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/catalog-setup/catalog-feed-setup",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/facebook-pixel",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-product-ads/product-audiences/v2.5",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-product-ads/debugging-tools",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-link-data-image-overlay-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-feature-details",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-sourcing-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-degrees-of-freedom-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-feature-customizations",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-link-data-image-layer-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-recommendation",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/custom-conversion",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/mobile-measurement",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/audiences-api/engagement",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/audiences/guides",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/audiences-api/pixel",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/custom-audience-session",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/targeting-search/v2.8",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/reach-estimate",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/facebook-pixel/conversion-tracking",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/businessmanager/business-to-business",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/saved-audience",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/audiences/reference/targeting-expansion",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reachandfrequency",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/businessmanager/systemuser",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/publisher-block-list",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/adset/destination_type",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads/on-facebook-destination",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-auto/audience-management",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/bidding-and-optimization/campaign-budget-optimization",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/bidding/overview/budgetsg",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/bidding/guides/campaign-budget-optimization",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/adset/pacing",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-manager-api",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/system-users",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-action-stats",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/generatepreview/v17.0",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/insights/estimated-in-development",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/system-users/overview",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/2tier-bm-solution/guides/invoice-group",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/system-users/install-apps-and-generate-tokens",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-item/channels_to_integrity_status",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/catalog-batch/guides/get-batch-request",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-site-links-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/business-asset-management",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/generatepreview/v21.0",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-travel/ads-management",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/buying-api/ad-units",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-flights/events",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adgroup/previews",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-preview",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-sets",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-study-cell",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-study-objective",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/insights-api",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-insights",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/unpublished-page-posts",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/hotel",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/hotel-room",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-image-crops",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/batch-requests/v2.6",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-report-run",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/asset-feed",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adgroup/copies",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-group",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adcreative",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/generatepreviews",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-comment",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-carousel",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-carousel/comments",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-comment/replies",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-media",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-media/comments",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-user",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-user/agencies",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-user/ar_effects",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-user/authorized_adaccounts",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/instagram-user/upcoming_events",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-report-run/insights",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/insights/parameters/v2.7",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/real-estate-ads/support",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-real-estate/audience",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-real-estate/ads-management",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/home-listing",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/agency-client-declaration",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/businessmanager",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account/capabilities",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/extended-credit-invoice-group",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/adgroup/deliverychecks",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account/timezone-ids",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account/advertisable_applications",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account-business-constraints",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-rule",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-column-sizes",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-place-page-set",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/validation",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ad",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/conversions-api/guides/gateway-multiple-accounts/host-onboarding/set-up-smtp",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account-dsa-recommendations",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-mcme-conversion",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/minimum-budget",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-bid-adjustments",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-campaign-bid-constraint",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-campaign-frequency-control-specs",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-campaign-issues-info",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-campaign-learning-stage-info",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/guides/offer-ads",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-campaign-delivery-estimate",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/publisher-delivery-report",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/targeting-sentence-line",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-ad-disclaimer",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-branded-content-ads",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-link-data-call-to-action",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/guides/dynamic-ad/store-visits",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-platform-customization",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-template-url-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/offsite-pixels",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/guides/brand_lift",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adgroup-review-feedback",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/conversion-action-query",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-creative-asset-groups-spec",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/adgroup-issues-info",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-pixel/offline_event_uploads",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/da-check",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ads-pixel-stats-result",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/business-creative-folder",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/omega-customer-trx",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/cpas-collaboration-request",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/extended-credit",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/business-image",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/custom-audience-data-source",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/custom-audience-ad-account",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/custom-audience-capabilities",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/ad-account/capabilities/v18.0",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-catalog-image-settings",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-catalog/agencies",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/check-batch-request-status",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/reference/product-event-stat",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-flights",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-hotels/v3.1",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-destinations/v3.1",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-flights/v3.1",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-hotels/template-tags/v2.11",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-destinations/template-tags/v2.11",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    },
+    {
+      "path": "/documentation/ads-commerce/marketing-api/dynamic-ads-for-flights/template-tags/v2.11",
+      "reason": "no-markdown",
+      "detail": "text/html; charset=\"utf-8\""
+    }
+  ],
+  "removed": [],
+  "credentialExamplesReplaced": [
+    "gateway-products/gateway-control-plane-api/setup-data-pipelines/data-pipelines.md",
+    "gateway-products/signals-gateway/google-bigquery-connection-setup.md"
+  ]
+}

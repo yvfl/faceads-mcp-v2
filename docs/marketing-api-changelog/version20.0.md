@@ -1,0 +1,93 @@
+---
+title: "Version 20.0"
+source: "https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version20.0"
+scraped_at: "2026-09-12T19:12:17.315Z"
+---
+
+# Version 20.0
+
+
+
+## Marketing API
+
+May 21, 2024 | **Available until** May 6, 2025 | [Blog post](https://developers.facebook.com/blog/post/2024/05/21/introducing-facebook-graph-and-marketing-api-v20/)
+
+### Instagram Graph API
+
+#### Instagram User Insights
+*Applies to v20.0+. Will apply to all versions on August 19, 2024.*
+
+The `last_14_days`, `last_30_days`, `last_90_days` and `prev_month` timeframes will no longer be supported for the `reached_audience_demographics` and `engaged_audience_demographics` metrics.
+
+The following endpoints and metrics are affected:
+
+* [`GET /{ig-user-id}/insights`](https://developers.facebook.com/docs/instagram-api/reference/ig-user/insights)
+    * `engaged_audience_demographics`
+    * `reached_audience_demographics`
+
+
+### Auction Ads
+
+#### Campaign Optimization of Impressions
+*Applies to v20.0+. Will apply to all versions August 19, 2024.*
+
+The `optimization_goal` parameter will no longer accept the impressions value in combination with:
+
+* The legacy `POST_ENGAGEMENT` objective
+* The `ON_POST` destination_type
+
+**Note:** Optimizing for reach is still available.
+
+The following endpoints are affected:
+
+* [`POST /{ad-account-id}/adsets`](reference/ad-account/adsets.md)
+
+#### Frequency Controls
+*Applies to v20.0+. Will apply to all versions August 19, 2024.*
+
+The `frequency_control_specs` parameter should no longer be sent in an API call if the `optimization_goal` is set to Ad Recall Lift, Link Click Optimization, Post Engagement, or 2-second Video Views. Any campaigns of this type that are still running will be disabled beginning August 19, 2024.
+
+Writes to this field are only available in ad sets where `REACH` and `THRUPLAY` are the performance goal.
+
+The following endpoints are affected:
+
+* [`POST /{ad-account-id}/adsets`](reference/ad-account/adsets.md)
+
+### Offline Conversions API
+
+#### Deprecation of Remaining Endpoints
+*Applies to v20.0+.*
+
+The Offline Conversions API will be discontinued in May 2025. It was previously due to be deprecated in the third quarter of 2024. As we announced in [the v17.0 changelog](https://developers.facebook.com/docs/graph-api/changelog/version17.0#offline-conversions-api), the Offline Conversions API no longer supports offline events. Graph API v16.0 is the last version that supports offline events. The Offline Conversions API will be discontinued when v16.0 expires in May 2025.
+
+Between now and May 2025, we will be deprecating the remaining Offline Conversions API endpoints on Marketing API v20.0.
+
+The following endpoints are affected:
+
+* [`POST/GET/DELETE /{offline_event_set_id}`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/events)
+* [`POST/GET /{offline_event_set_id}/uploads`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/uploads)
+* [`POST /{offline_event_set_id}/validate`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/validate)
+* `POST /{offline_event_set_id}/ad_account`
+* [`GET /{offline_event_set_id}/stats`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/stats)
+* [`GET /{offline_event_set_id}/shared_agencies`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/shared_agencies)
+* [`POST/GET /{offline_event_set_id}/agencies`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/agencies)
+* [`GET /{offline_event_set_id}/adaccounts`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/adaccounts)
+* [`GET /{offline_event_set_id}/customconversions`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/customconversions)
+* [`GET /{offline_event_set_id}/audiences`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/audiences)
+* [`GET /{offline_event_set_id}/shared_accounts`](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/shared_accounts)
+* [`GET /{ad_account_id}/offline_conversion_data_sets`](reference/ad-account/adsets.md)
+* [`POST/GET /{business_id}/offline_conversion_data_sets`](reference/business/offline_conversion_data_sets.md)
+* `POST/GET/DELETE /{business_asset_group_id}/contained_offline_conversion_data_sets`
+
+**Warning:** In February 2023, we announced that the Conversions API now fully supports offline events. We recommend that advertisers use the Conversions API for new integrations. We recommend that advertisers with Offline Conversions API integrations [convert their integration into a Conversions API integration](conversions-api/offline-events.md) before May 2025 and not update their Offline Conversions API until they have successfully done so. Learn more about [the Conversions API](conversions-api.md).
+
+### Messaging Ads
+
+#### Sponsored Messages
+*Applies to v20.0+. Will apply to all versions August 19, 2024.*
+
+Creation of the sponsored messages ad type will no longer be available. This change will not affect other messaging ads ad types.
+
+The following endpoints are affected:
+
+* [`POST /{ad-account-id}/adcreatives`](reference/ad-account/adcreatives.md)

@@ -1,0 +1,602 @@
+[
+  {
+    "name": "search_documentation",
+    "description": "Busca na documentação Meta Ads, Conversions API e Catalog. Suporta português e inglês.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_document_by_path",
+    "description": "Obtém um documento pelo caminho devolvido na busca, com fonte e data de coleta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "list_sections",
+    "description": "Lista as seções disponíveis e sua quantidade de documentos públicos.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_endpoint_reference",
+    "description": "Busca referências de um objeto ou endpoint da API.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_error_code_info",
+    "description": "Busca contexto de um código de erro da API.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_quick_reference",
+    "description": "Obtém a referência rápida e os caminhos para consultar a documentação.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "discover_ad_accounts",
+    "description": "Lista uma página das contas de anúncios autorizadas nesta conexão. Use primeiro para obter os IDs reais das contas (act_...).",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_facebook_pages",
+    "description": "Lista uma página das páginas Facebook disponíveis para criar criativos. Não expõe tokens das páginas.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_instagram_account",
+    "description": "Obtém a conta Instagram vinculada a uma página Facebook e seu ID para uso nos criativos.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_campaigns",
+    "description": "Lista uma página das campanhas da conta, com campos e filtro de status opcionais.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_campaign",
+    "description": "Obtém os dados de uma campanha, incluindo orçamento e categorias especiais.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_campaign",
+    "description": "Cria uma campanha, pausada por padrão. Orçamento no nível da campanha é CBO; informe daily_budget ou lifetime_budget, nunca os dois.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "update_campaign",
+    "description": "Atualiza campos de uma campanha existente. Valores monetários usam a unidade mínima da moeda da conta.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "pause_campaign",
+    "description": "Pausa uma campanha pelo ID.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "activate_campaign",
+    "description": "Ativa uma campanha pelo ID. Uma campanha elegível pode começar a gastar o orçamento configurado.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_adsets",
+    "description": "Lista uma página dos conjuntos de anúncios da conta, com filtro de status opcional.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_adset",
+    "description": "Obtém um conjunto de anúncios, incluindo campanha, orçamento e targeting.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_adset",
+    "description": "Cria um conjunto de anúncios, pausado por padrão. Informe targeting explícito; use search_geolocation para localizar regiões. Respeita a versão da API e as regras de categoria especial. Lance com teto exige bid_amount.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "update_adset",
+    "description": "Atualiza um conjunto de anúncios. Targeting mantém a opção de audiência existente se você não enviar uma nova escolha.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "pause_adset",
+    "description": "Pausa um conjunto de anúncios pelo ID.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "activate_adset",
+    "description": "Ativa um conjunto de anúncios pelo ID. Pode iniciar entrega e consumo de orçamento.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_ads",
+    "description": "Lista uma página dos anúncios da conta, com filtro de status opcional.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_campaign_ads",
+    "description": "Lista uma página dos anúncios de uma campanha.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_ad",
+    "description": "Obtém os dados de um anúncio pelo ID.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_ad",
+    "description": "Cria um anúncio vinculado a um ad set e a um criativo existente, pausado por padrão.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "update_ad",
+    "description": "Atualiza nome, status ou criativo de um anúncio existente.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "pause_ad",
+    "description": "Pausa um anúncio pelo ID.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "activate_ad",
+    "description": "Ativa um anúncio pelo ID. Pode iniciar entrega e consumo de orçamento.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_creatives",
+    "description": "Lista uma página dos criativos da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_creative",
+    "description": "Obtém a especificação de um criativo existente.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_creative",
+    "description": "Cria um criativo com object_story_spec ou object_story_id. creative_features_spec é envelopado em degrees_of_freedom_spec. A identidade da página e eventuais autorizações de parceiros precisam existir na Meta.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_account_insights",
+    "description": "Consulta métricas da conta por período e dimensões, preservando todas as linhas retornadas. Valores monetários usam a moeda da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_campaign_insights",
+    "description": "Consulta métricas de uma campanha por período, dimensões e janelas de atribuição.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_adset_insights",
+    "description": "Consulta métricas de um conjunto de anúncios por período, dimensões e janelas de atribuição.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_ad_insights",
+    "description": "Consulta métricas de um anúncio por período, dimensões e janelas de atribuição.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_attribution_comparison",
+    "description": "Compara as métricas de conversão retornadas pela Meta nas janelas de atribuição solicitadas. Disponibilidade de atribuição incremental depende da conta e da API.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_performance_summary",
+    "description": "Resume gasto, conversões, CPA e ROAS da conta quando os dados necessários estão disponíveis. Valores monetários usam a moeda da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_campaign_ads_with_insights",
+    "description": "Lista uma página dos anúncios da campanha e consulta os insights de cada anúncio retornado. A resposta indica se houver outras páginas.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_custom_audiences",
+    "description": "Lista uma página das audiências customizadas da conta, com limites estimados de tamanho.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_custom_audience",
+    "description": "Cria uma audiência customizada, de site, aplicativo, engajamento ou semelhante. Os campos necessários dependem do subtipo e da origem dos dados.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_reach_estimate",
+    "description": "Consulta a estimativa de alcance de um targeting na conta. Estimativas não garantem entrega.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_pixels",
+    "description": "Lista uma página dos pixels e datasets disponíveis na conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "upload_image",
+    "description": "Baixa uma imagem raster de URL pública e envia os bytes à conta. Limite de 10 MB; redes privadas e redirecionamentos inseguros são bloqueados.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_dataset_quality",
+    "description": "Consulta a qualidade de eventos de um pixel ou dataset. Requer disponibilidade e permissões correspondentes na Meta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "search_geolocation",
+    "description": "Busca países, regiões e cidades para obter keys reais de targeting. Não invente identificadores geográficos.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "execute_api",
+    "description": "Executa GET, POST ou DELETE em um endpoint Graph permitido, com a mesma permissão e restrição de contas das demais tools. Use também para continuar páginas com after. Tokens, batch e troca do método via params são bloqueados.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "upload_video",
+    "description": "Envia um vídeo de URL pública à Meta para processamento. Consulte get_video_status antes de usar o vídeo no criativo.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_video_status",
+    "description": "Consulta o estado de processamento de um vídeo enviado à Meta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_value_rule_set",
+    "description": "Cria um conjunto de regras de valor para otimização de conversões.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_value_rule_sets",
+    "description": "Lista uma página dos conjuntos de regras de valor da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_value_rule_set",
+    "description": "Obtém um conjunto de regras de valor pelo ID.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "update_value_rule_set",
+    "description": "Atualiza nome ou regras de um conjunto de regras de valor.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "delete_value_rule_set",
+    "description": "Exclui um conjunto de regras de valor pelo ID.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_ad_label",
+    "description": "Cria um rótulo para organizar os objetos da conta.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "list_ad_labels",
+    "description": "Lista uma página dos rótulos da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "preview_creative",
+    "description": "Solicita o HTML de prévia de um criativo no formato escolhido. Prévia não comprova aprovação nem entrega.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_budget_schedule",
+    "description": "Cria um agendamento de orçamento de campanha. Informe datas ISO 8601 com fuso e término posterior ao início.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_budget_schedules",
+    "description": "Lista uma página dos agendamentos de orçamento da campanha.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "update_budget_schedule",
+    "description": "Atualiza valor ou datas de um agendamento de orçamento existente.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "delete_budget_schedule",
+    "description": "Exclui um agendamento de orçamento pelo ID.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "get_skill",
+    "description": "Lê o guia local de operação deste MCP e os fluxos disponíveis.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_playbook",
+    "description": "Lê o playbook local de análise e otimização. Recomendações dependem dos objetivos e dados da conta.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "get_andromeda",
+    "description": "Lê o guia local de referência sobre criativos, públicos, sinais e estrutura de campanhas.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "create_threads_ad_set",
+    "description": "Cria um ad set com Instagram Feed e Threads Feed, compartilhando validação e preparação com create_adset. Targeting explícito é obrigatório. Outros placements são substituídos com aviso; status inicial PAUSED.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_click_to_message_ad_set",
+    "description": "Cria um ad set para WhatsApp, Messenger ou Instagram Direct, compartilhando validação e preparação com create_adset. Exige targeting e página explícitos. Esta ferramenta exige telefone E.164 para WhatsApp, para evitar selecionar um número implicitamente. Status inicial PAUSED.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "create_partnership_ad_creative",
+    "description": "Cria um criativo de parceria por post Instagram, ad code Facebook ou novo criativo. Instagram aceita media ID ou ad code. Ad codes e ad_format são enviados em branded_content; novo criativo exige ao menos uma identidade de parceiro. Autorizações e elegibilidade são verificadas pela Meta.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    }
+  }
+]

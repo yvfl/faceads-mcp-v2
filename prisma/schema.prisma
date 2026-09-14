@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Durable write receipts. JSON contains only allowlisted values and hashed identity keys.
+model AdsOperation {
+  key         String @id
+  ownerHash   String @map("owner_hash")
+  requestId   String @map("request_id")
+  fingerprint String
+  status      String
+  record      Json
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([ownerHash, requestId])
+  @@index([ownerHash, fingerprint, status])
+  @@map("ads_operations")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  passwordHash String?  @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  metaTokens         MetaToken[]
+  authorizationCodes AuthorizationCode[]
+  oauthAccessTokens  OAuthAccessToken[]
+  usedRefreshTokens  OAuthUsedRefreshToken[]
+
+  @@map("users")
+}
+
+model MetaToken {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  accessToken String    @map("access_token")
+  tokenType   String    @default("user") @map("token_type")
+  adAccountId String?   @map("ad_account_id")
+  expiresAt   DateTime? @map("expires_at")
+  scopes      String?
+  metaUserId  String?   @map("meta_user_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("meta_tokens")
+}
+
+model OAuthClient {
+  id           String   @id @default(uuid())
+  clientSecret String?  @map("client_secret")
+  tokenEndpointAuthMethod String @default("none") @map("token_endpoint_auth_method")
+  clientName   String   @map("client_name")
+  redirectUris String[] @map("redirect_uris")
+  grantTypes   String[] @map("grant_types")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  authorizationCodes AuthorizationCode[]
+  accessTokens       OAuthAccessToken[]
+  usedRefreshTokens  OAuthUsedRefreshToken[]
+
+  @@map("oauth_clients")
+}
+
+model AuthorizationCode {
+  code                String   @id
+  clientId            String   @map("client_id")
+  userId              String   @map("user_id")
+  redirectUri         String   @map("redirect_uri")
+  scope               String   @default("")
+  codeChallenge       String   @map("code_challenge")
+  codeChallengeMethod String   @default("S256") @map("code_challenge_method")
+  expiresAt           DateTime @map("expires_at")
+  used                Boolean  @default(false)
+  resource            String
+  selectedAccountIds  String[] @default([]) @map("selected_account_ids")
+  metaTokenId         String   @map("meta_token_id")
+
+  client OAuthClient @relation(fields: [clientId], references: [id])
+  user   User        @relation(fields: [userId], references: [id])
+
+  @@index([clientId])
+  @@index([userId])
+  @@map("authorization_codes")
+}
+
+model OAuthAccessToken {
+  token        String   @id
+  clientId     String   @map("client_id")
+  userId       String   @map("user_id")
+  scope        String   @default("")
+  expiresAt    DateTime @map("expires_at")
+  refreshToken String?  @unique @map("refresh_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  // Stable across access-token refresh; scopes and selected accounts remain immutable.
+  operationOwnerId String @default(uuid()) @map("operation_owner_id")
+
+  resource           String
+  selectedAccountIds String[] @default([]) @map("selected_account_ids")
+  metaTokenId        String @map("meta_token_id")
+  refreshExpiresAt   DateTime? @map("refresh_expires_at")
+
+  client OAuthClient @relation(fields: [clientId], references: [id])
+  user   User        @relation(fields: [userId], references: [id])
+
+  @@index([clientId])
+  @@index([userId])
+  @@index([refreshToken])
+  @@index([operationOwnerId])
+  @@map("oauth_access_tokens")
+}
+
+// Hashes only. Retained briefly to recognize replay and revoke the affected authorization.
+model OAuthUsedRefreshToken {
+  refreshToken     String   @id @map("refresh_token")
+  operationOwnerId String   @map("operation_owner_id")
+  clientId         String   @map("client_id")
+  userId           String   @map("user_id")
+  resource         String
+  scope            String
+  retainUntil      DateTime @map("retain_until")
+
+  client OAuthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([retainUntil])
+  @@map("oauth_used_refresh_tokens")
+}
+
+// Short-lived, browser-bound consent state. OAuth parameters never come from hidden inputs.
+model OAuthFlow {
+  id                String @id
+  browserSecretHash String @map("browser_secret_hash")
+  clientId          String @map("client_id")
+  redirectUri       String @map("redirect_uri")
+  scope             String
+  resource          String
+  codeChallenge     String @map("code_challenge")
+  state             String?
+  userId            String? @map("user_id")
+  pendingMetaToken   String? @map("pending_meta_token")
+  metaUserId        String? @map("meta_user_id")
+  accounts          Json?
+  expiresAt         DateTime @map("expires_at")
+
+  @@index([expiresAt])
+  @@map("oauth_flows")
+}

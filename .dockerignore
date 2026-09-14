@@ -1,0 +1,14 @@
+.git
+node_modules
+dist
+.env
+.env.*
+.audit-results
+.scrape-cache
+scrape-state.json
+scrape-report.json
+*.log
+tests
+plus
+audit
+audits
