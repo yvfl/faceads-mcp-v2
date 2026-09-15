@@ -64,7 +64,13 @@ Clientes HTTP sem sessão de usuário são aceitos sem header `Origin`. Clientes
 
 ## Operação e reversão
 
-Uma nova versão do container pode invalidar sessões de transporte, que o cliente recria. Tokens de acesso MCP duram uma hora; o refresh permite renovação por 90 dias desde a emissão ou última renovação bem-sucedida. Esse prazo é deslizante, sem encerramento mensal para conexões em uso. A sessão existente aceita o novo acesso quando a autorização continua igual. A conexão é vinculada ao token Meta validado no consentimento. Quando esse token expirar ou perder acesso, refaça a conexão e valide um token válido.
+Uma nova versão do container pode invalidar sessões de transporte, que o cliente recria. Tokens de acesso MCP duram uma hora por padrão; o refresh permite renovação por 90 dias desde a emissão ou última renovação bem-sucedida. Esse prazo é deslizante, sem encerramento mensal para conexões em uso. A sessão existente aceita o novo acesso quando a autorização continua igual. A conexão é vinculada ao token Meta validado no consentimento. Quando esse token expirar ou perder acesso, refaça a conexão e valide um token válido.
+
+Para testar várias renovações em poucos minutos, adicione `MCP_OAUTH_ACCESS_TOKEN_TTL_SECONDS=120` às variáveis do serviço da v2 e aplique um novo deployment. O código aceita inteiros entre 60 e 3600 segundos, com 3600 como padrão quando a variável está ausente. Valores inválidos impedem o serviço de iniciar. A alteração afeta somente acessos emitidos ou renovados depois do reinício; não antecipa o vencimento dos tokens já existentes nem muda o prazo do refresh.
+
+Para começar a homologação sem transportes antigos em segundo plano, encerre completamente o aplicativo MCP e eventuais processos que usem essa mesma conexão, reabra e estabeleça uma nova autorização após o deployment. Abrir apenas outra conversa não garante que o processo anterior foi encerrado. Faça uma leitura, aguarde mais de dois minutos e repita por pelo menos três ciclos sem novo login.
+
+Remova a variável ao encerrar a homologação e aplique novo deployment para voltar ao padrão. Nenhuma credencial ou alteração no banco é necessária para configurar esse prazo.
 
 As migrações de continuidade estendem somente refreshes ainda válidos, calculando 90 dias a partir da emissão da linha atual e preservando prazos que já sejam maiores. Não recuperam tokens expirados, consumidos ou revogados. Também criam o histórico de hashes de refresh consumidos, necessário à detecção de reutilização. Aplique as migrações antes de iniciar a versão nova, pelo fluxo normal do container.
 

@@ -1,6 +1,17 @@
 import { randomUUID, createHash, scryptSync, randomBytes, timingSafeEqual } from 'node:crypto';
 
-export const ACCESS_TOKEN_TTL = 60 * 60 * 1000;
+function accessTokenTtl(): number {
+  const value = process.env.MCP_OAUTH_ACCESS_TOKEN_TTL_SECONDS;
+  if (value === undefined) return 60 * 60 * 1000;
+  const seconds = Number(value);
+  if (!/^[0-9]+$/.test(value) || !Number.isSafeInteger(seconds) || seconds < 60 || seconds > 3600) {
+    throw new Error('MCP_OAUTH_ACCESS_TOKEN_TTL_SECONDS must be an integer between 60 and 3600.');
+  }
+  return seconds * 1000;
+}
+
+// Read once at startup so stored expiry and OAuth expires_in use the same value.
+export const ACCESS_TOKEN_TTL = accessTokenTtl();
 // Successful refresh restarts this inactivity window; active grants have no fixed end date.
 export const REFRESH_TOKEN_IDLE_TTL = 90 * 24 * 60 * 60 * 1000;
 export const AUTH_CODE_TTL = 5 * 60 * 1000;
