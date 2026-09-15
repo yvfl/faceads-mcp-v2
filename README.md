@@ -18,7 +18,9 @@ O token manual foi mantido. Não há Login com Facebook nem cadastro de um novo 
 
 Cada conexão guarda a seleção de contas e uma referência ao token validado naquele consentimento. Uma conexão posterior não troca silenciosamente o token de uma conexão anterior. Revogar o acesso na tela de conexão invalida os tokens MCP daquele assistente para o usuário.
 
-O acesso MCP dura uma hora e o aplicativo deve renová-lo automaticamente. A renovação pode ocorrer por até **90 dias desde a emissão ou última renovação bem-sucedida**. Cada renovação reinicia esse prazo; conexões em uso não exigem login mensal. Após 90 dias sem renovar, é necessário conectar novamente. A validade e as permissões do token Meta continuam independentes.
+O acesso MCP dura uma hora por padrão e o aplicativo deve renová-lo automaticamente. A renovação pode ocorrer por até **90 dias desde a emissão ou última renovação bem-sucedida**. Cada renovação reinicia esse prazo; conexões em uso não exigem login mensal. Após 90 dias sem renovar, é necessário conectar novamente. A validade e as permissões do token Meta continuam independentes.
+
+Para acelerar a homologação de OAuth, configure `MCP_OAUTH_ACCESS_TOKEN_TTL_SECONDS=120` no serviço HTTP e reinicie-o: novos acessos passam a durar dois minutos. São aceitos inteiros de 60 a 3600 segundos; valores inválidos impedem a inicialização, e a ausência da variável mantém uma hora. O prazo vale para emissão inicial e renovação, tanto no banco quanto em `expires_in`. Tokens existentes conservam o vencimento original. Para começar imediatamente com o prazo curto, estabeleça uma nova autorização; depois atravesse vários ciclos sem refazer login. Ao terminar, remova a variável e reinicie o serviço. A validade do refresh e as permissões não mudam.
 
 Renovar o acesso preserva a sessão MCP quando a autorização permanece a mesma. Novo consentimento ou redução de permissões exige outra sessão; reinício do servidor também pode exigir inicialização, sem necessariamente pedir novo login. Aplicativos diferentes podem reutilizar o token Meta salvo e mantêm conexões OAuth independentes.
 
