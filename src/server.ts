@@ -66,8 +66,11 @@ export function createMcpServer(): Server {
         };
       }
 
-
-      return result;
+      // No tool declares outputSchema, so structuredContent has no contract here. Clients such as
+      // Claude.ai forward structuredContent instead of content, which dropped the rows of every
+      // paginated read and left only the pagination summary. Content already carries that summary.
+      const { structuredContent: _structured, ...wireResult } = result as typeof result & { structuredContent?: unknown };
+      return wireResult;
     } catch (error) {
 
       let errorText: string;
