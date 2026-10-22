@@ -147,7 +147,7 @@ test('MCP prompts require complete evidence and explicit changes instead of auto
     for (const { name } of prompts) {
       const result = await client.getPrompt({ name });
       const text = result.messages.map(message => message.content.text ?? '').join('\n');
-      assert.match(text, /pagination\.complete no JSON do início da resposta/, name);
+      assert.match(text, /pagination\.complete no JSON do fim da resposta/, name);
       assert.match(text, /collections\[\]\.next/, name);
       assert.match(text, /Documentação.*não habilita essas operações no FaceAds/, name);
       assert.match(text, /get_operation_status/, name);

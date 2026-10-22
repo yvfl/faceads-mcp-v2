@@ -15,7 +15,7 @@ import * as fs from 'fs';
 
 const operationContract = `Este é um guia de contexto, não uma autorização de escrita. Confira tools/list, o schema e diagnose_connection antes de operar. Documentação de Catalog, CAPI, Gateway ou do MCP oficial não habilita essas operações no FaceAds.
 
-Listas e Insights percorrem páginas automaticamente dentro dos limites. Antes de concluir quantidade ou desempenho global, confira pagination.complete no JSON do início da resposta; se for false, informe que o resultado é parcial e chame collections[].next.tool com collections[].next.arguments. Se houver erro, siga primeiro a orientação de recuperação antes de continuar. Uma consulta iniciada em after não inclui as páginas anteriores. Preserve todas as linhas, dimensões e períodos; métrica ausente ou consulta com erro não equivale a zero.
+Listas e Insights percorrem páginas automaticamente dentro dos limites. Antes de concluir quantidade ou desempenho global, confira pagination.complete no JSON do fim da resposta; se for false, informe que o resultado é parcial e chame collections[].next.tool com collections[].next.arguments. Se houver erro, siga primeiro a orientação de recuperação antes de continuar. Uma consulta iniciada em after não inclui as páginas anteriores. Preserve todas as linhas, dimensões e períodos; métrica ausente ou consulta com erro não equivale a zero.
 
 Campanhas, conjuntos e anúncios são criados ou copiados sempre PAUSED. Ativação é uma operação separada e exige intenção explícita do usuário. Use request_id por intenção de escrita e get_operation_status após timeout; não repita uma criação de resultado incerto nem tente contornar o bloqueio usando outro ID. Não peça nem exponha tokens pelo chat.`;
 

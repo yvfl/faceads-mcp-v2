@@ -59,7 +59,10 @@ export async function handleApiTool(name: string, args: unknown): Promise<ToolRe
       result.structuredContent = { ...result.structuredContent, pagination: { complete, scope: continued ? 'from_cursor' : 'entire_query', collections: client.collections } };
       const unexpected = incomplete.some(page => page.reason !== 'page_requested');
       const status = complete ? 'Consulta completa para os filtros informados.' : 'RESULTADO INCOMPLETO: os resultados são parciais. Não use esta resposta isolada para afirmar o total existente ou concluir desempenho global.';
-      result.content.unshift({ type: 'text', text: `${status}${continued ? '\nA consulta começou em um cursor e não inclui as páginas anteriores.' : ''}\n${JSON.stringify({ pagination: result.structuredContent.pagination })}` });
+      // Some clients read only the first block, so the data stays first. A partial result still opens
+      // with the warning, keeping a slice from being read as the total.
+      if (!complete && result.content.length) result.content[0] = { ...result.content[0], text: `${status}\n\n${result.content[0].text}` };
+      result.content.push({ type: 'text', text: `${status}${continued ? '\nA consulta começou em um cursor e não inclui as páginas anteriores.' : ''}\n${JSON.stringify({ pagination: result.structuredContent.pagination })}` });
       if (unexpected) result.isError = true;
     }
     if (client?.nextPages.length) {

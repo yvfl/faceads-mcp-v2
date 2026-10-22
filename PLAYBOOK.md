@@ -16,7 +16,7 @@ Registre a meta acordada e como ela será medida. Se faltar uma informação ind
 4. Examine o resultado no nível correto: campanha, conjunto, anúncio ou criativo.
 5. Considere volume, atraso de conversão e sazonalidade antes de interpretar uma variação pequena.
 
-Confira a completude da consulta antes de contar anúncios ou comparar desempenho. As ferramentas percorrem páginas automaticamente dentro dos limites, mas `pagination.complete: false`, no JSON do início da resposta, indica que a consulta inteira ainda não está reunida. Continue com o cursor e os parâmetros retornados; uma resposta iniciada em `after` não inclui os resultados anteriores. Informe amostras e recortes como parciais.
+Confira a completude da consulta antes de contar anúncios ou comparar desempenho. As ferramentas percorrem páginas automaticamente dentro dos limites, mas `pagination.complete: false`, no JSON do fim da resposta, indica que a consulta inteira ainda não está reunida. Continue com o cursor e os parâmetros retornados; uma resposta iniciada em `after` não inclui os resultados anteriores. Informe amostras e recortes como parciais.
 
 Preserve as linhas por período, dimensão e tipo de ação. Um campo ausente não é zero; uma falha de Insights não demonstra ausência de entrega. Separe os anúncios cujo desempenho foi confirmado daqueles cuja consulta falhou ou ficou incompleta.
 

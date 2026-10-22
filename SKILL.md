@@ -24,7 +24,7 @@ Não invente IDs nem copie IDs dos exemplos. A permissão concedida à conexão 
 
 Listas e Insights usam paginação automática por padrão, limitada a 10 páginas e 25 segundos por coleção. `max_pages` permite até 50 páginas; `limit` é o tamanho de cada página. Use `pagination_mode: "page"` apenas quando a tarefa pedir uma amostra ou uma página. `execute_api` mantém uma página por padrão.
 
-Antes de afirmar quantos anúncios existem ou comparar desempenho global, confira `pagination.complete` no JSON do início da resposta. Se for `false`, apresente o recorte como parcial e chame `collections[].next.tool` com `collections[].next.arguments`. Se houver erro na coleção, siga primeiro `error.action`. `scope: "from_cursor"` informa que a resposta exclui as páginas anteriores; reúna essas páginas antes de fechar a análise. Não use o número de itens retornados como total da conta.
+Antes de afirmar quantos anúncios existem ou comparar desempenho global, confira `pagination.complete` no JSON do fim da resposta. Se for `false`, apresente o recorte como parcial e chame `collections[].next.tool` com `collections[].next.arguments`. Se houver erro na coleção, siga primeiro `error.action`. `scope: "from_cursor"` informa que a resposta exclui as páginas anteriores; reúna essas páginas antes de fechar a análise. Não use o número de itens retornados como total da conta.
 
 Use somente argumentos anunciados no schema: parâmetros desconhecidos são rejeitados. `list_ads` aceita `effective_status` e `updated_since` em segundos Unix. Se mudar campos, filtros ou período após um erro, reinicie a paginação e identifique o novo recorte. Campo não retornado não comprova ausência de configuração ou de vínculo.
 
